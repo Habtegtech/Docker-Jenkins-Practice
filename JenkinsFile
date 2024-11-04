@@ -1,0 +1,23 @@
+Jenkinsfile (Declarative Pipeline)
+pipeline {
+    agent any  // This means any available Jenkins agent will be used
+    stages {
+        stage('build') {
+            steps {
+                // Check Python version assuming Python is installed on the agent
+                sh 'python --version'
+            }
+        }
+        stage('test') {
+            steps {
+                // Run tests using Python's unittest framework
+                sh 'python -m unittest discover'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline completed!'
+        }
+    }
+}
