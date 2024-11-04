@@ -1,23 +1,34 @@
 Jenkinsfile (Declarative Pipeline)
 pipeline {
-    agent any  // This means any available Jenkins agent will be used
+    agent any  // Use any available Jenkins agent
+
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                // Check Python version assuming Python is installed on the agent
+                // Simple command to indicate the build process
+                echo 'Building the application...'
+                // Check Python version (ensure Python is installed on the agent)
                 sh 'python --version'
             }
         }
-        stage('test') {
+        stage('Test') {
             steps {
                 // Run tests using Python's unittest framework
+                echo 'Running tests...'
                 sh 'python -m unittest discover'
             }
         }
     }
+
     post {
         always {
             echo 'Pipeline completed!'
+        }
+        success {
+            echo 'Build and tests succeeded!'
+        }
+        failure {
+            echo 'Build or tests failed.'
         }
     }
 }
