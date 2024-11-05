@@ -3,9 +3,17 @@ pipeline {
 
     environment {
         FLASK_ENV = 'development' // or 'production'
+        GIT_REPO_URL = 'https://github.com/Habtegtech/Docker-Jenkins-Practice.git'  // HTTPS URL for the repository
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out the Git repository...'
+                git url: "${env.GIT_REPO_URL}", branch: 'main'
+            }
+        }
+
         stage('Build') {
             steps {
                 script {
