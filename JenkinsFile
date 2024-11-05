@@ -6,13 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                echo 'Checking out the Git repository...'
-                git url: 'https://github.com/Habtegtech/Docker-Jenkins-Practice.git', branch: 'main'
-            }
-        }
-
         stage('Build') {
             steps {
                 script {
