@@ -1,34 +1,31 @@
-Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent any  // Use any available Jenkins agent
 
-    stages {
-        stage('Build') {
-            steps {
-                // Simple command to indicate the build process
-                echo 'Building the application...'
-                // Check Python version (ensure Python is installed on the agent)
-                sh 'python --version'
-            }
-        }
-        stage('Test') {
-            steps {
-                // Run tests using Python's unittest framework
-                echo 'Running tests...'
-                sh 'python -m unittest discover'
-            }
-        }
+    environment {
+        // Define environment variables if needed, e.g. Python version
+        PYTHON_VERSION = '3.12'
     }
 
-    post {
-        always {
-            echo 'Pipeline completed!'
+    stages {
+        stage('Setup') {
+            steps {
+                echo 'Setting up environment...'
+                // Ensure Python and pip are installed
+                sh 'python --version'  // Verify Python version
+                sh 'pip install --upgrade pip'  // Upgrade pip
+                sh 'pip install -r requirements.txt'  // Install dependencies from requirements.txt
+            }
         }
-        success {
-            echo 'Build and tests succeeded!'
+
+        stage('Run Tests') {
+            steps {
+                echo 'Running Python tests...'
+                // Run Python tests using unittest or pytest
+                sh 'python -m unittest discover'  // Or use pytest if you prefer
+            }
         }
-        failure {
-            echo 'Build or tests failed.'
-        }
-    }
-}
+
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                // You can define build tasks h
