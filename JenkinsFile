@@ -51,4 +51,25 @@ pipeline {
                     // Ensure gunicorn is installed and start the application with Gunicorn
                     sh '''
                         source venv/bin/activate
-        
+                        pip install gunicorn  // Install Gunicorn explicitly in case it's missing
+                        gunicorn -w 4 -b 0.0.0.0:5000 app:app &
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+
+        success {
+            echo 'The build was successful!'
+        }
+
+        failure {
+            echo 'The build failed.'
+        }
+    }
+}
