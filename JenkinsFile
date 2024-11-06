@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    // Activate the virtual environment and run tests
+                   
                     sh '''
                         source venv/bin/activate
                         pytest test_app.py
