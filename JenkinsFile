@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        FLASK_ENV = 'development' // or 'production'
+        FLASK_ENV = 'development' 
         GIT_REPO_URL = 'https://github.com/Habtegtech/Docker-Jenkins-Practice.git'  // HTTPS URL for the repository
     }
 
